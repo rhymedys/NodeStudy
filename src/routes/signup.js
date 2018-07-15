@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:38:22
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 15:17:38
+ * @Last Modified time: 2018-07-15 15:44:25
  */
 const fs = require('fs')
 const express = require('express')
@@ -47,6 +47,7 @@ router.post('/', checkNotLogin, function (req, res, next) {
       throw new Error('两次输入密码不一致')
     }
   } catch (e) {
+    console.log('创建用户校验错误', e)
     fs.unlink(req.files.avatar.name, () => {
 
     })
@@ -80,7 +81,7 @@ router.post('/', checkNotLogin, function (req, res, next) {
 
       })
       if (e.message.match('duplicate key')) {
-        req.flash('error', '用户名已被占用')
+        req.flash('创建用户失败', '用户名已被占用')
         return res.redirect('/signup')
       }
       next(e)
