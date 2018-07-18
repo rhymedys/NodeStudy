@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 14:21:41
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 21:34:40
+ * @Last Modified time: 2018-07-18 15:16:15
  */
 
 const config = require('config-lite')(__dirname)
@@ -54,3 +54,24 @@ exports.User = mongolass.model('User', {
 })
 
 exports.User.index({name: 1}, { unique: true }).exec()
+
+exports.Post = mongolass.model('Post', {
+  author: {
+    type: Mongolass.Types.ObjectId,
+    required: true
+  },
+  title: {
+    type: 'string',
+    required: true
+  },
+  content: {
+    type: 'string',
+    required: true
+  },
+  pv: {
+    type: 'number',
+    default: 0
+  }
+})
+
+exports.Post.index({author: 1, _id: -1}).exec()

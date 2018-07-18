@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:29:46
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 13:33:58
+ * @Last Modified time: 2018-07-18 11:10:26
  *
  * 检查登录中间件
  */
@@ -17,7 +17,7 @@ module.exports = {
    * @returns
    */
   checkLogin (req, res, next) {
-    if (req.session.user) {
+    if (!req.session.user) {
       req.flash('error', '未登录')
       return res.redirect('/signin')
     }

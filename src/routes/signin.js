@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:37:48
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 21:45:19
+ * @Last Modified time: 2018-07-18 13:52:21
  */
 const express = require('express')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
@@ -41,6 +41,7 @@ router.post('/', checkNotLogin, function (req, res, next) {
 
       if (sha1(password) !== user.password) {
         req.flash('error', '密码错误')
+        return
       }
 
       req.flash('success', '成功')
