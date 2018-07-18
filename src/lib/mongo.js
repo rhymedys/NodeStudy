@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 14:21:41
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-18 15:16:15
+ * @Last Modified time: 2018-07-18 16:14:19
  */
 
 const config = require('config-lite')(__dirname)
@@ -29,6 +29,7 @@ mongolass.plugin('addCreatedAt', {
   }
 })
 
+// 用户模型
 exports.User = mongolass.model('User', {
   name: {
     type: 'string',
@@ -55,6 +56,7 @@ exports.User = mongolass.model('User', {
 
 exports.User.index({name: 1}, { unique: true }).exec()
 
+// 文章模型
 exports.Post = mongolass.model('Post', {
   author: {
     type: Mongolass.Types.ObjectId,
@@ -75,3 +77,21 @@ exports.Post = mongolass.model('Post', {
 })
 
 exports.Post.index({author: 1, _id: -1}).exec()
+
+// 评论模型
+exports.Comment = mongolass.model('Comment', {
+  author: {
+    type: Mongolass.Types.ObjectId,
+    required: true
+  },
+  content: {
+    type: 'string',
+    required: true
+  },
+  postId: {
+    type: Mongolass.Types.ObjectId,
+    required: true
+  }
+})
+
+exports.Comment.index({postId: 1, _id: 1}).exec()

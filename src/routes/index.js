@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:15:32
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 15:19:15
+ * @Last Modified time: 2018-07-18 17:05:21
  */
 
 const routes = [
@@ -45,5 +45,9 @@ module.exports = function (app) {
 
   routes.forEach(val => {
     app.use(val.path, ...val.cbs)
+  })
+
+  app.use((req, res) => {
+    if (!res.headerSent) res.status(400).render('404')
   })
 }

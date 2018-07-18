@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:35:01
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-18 15:46:36
+ * @Last Modified time: 2018-07-18 16:56:08
  */
 
 const express = require('express')
@@ -10,6 +10,7 @@ const router = express.Router()
 
 const checkLogin = require('../middlewares/check').checkLogin
 const PostModel = require('../models/posts')
+const CommentModal = require('../models/comments')
 
 // GET /posts 所有用户或者特定用户的文章页
 //   eg: GET /posts?author=xxx
@@ -70,14 +71,17 @@ router.get('/:postId', function (req, res, next) {
 
   Promise.all([
     PostModel.getPostById(postId),
-    PostModel.inPV(postId)
+    PostModel.inPV(postId),
+    CommentModal.getCommentByPostId(postId)
   ]).then((posts) => {
     const post = posts[0]
+    const comments = posts[2]
     console.log(post)
     if (!post) throw new Error('该文章不存在')
 
     res.render('post', {
-      post: post
+      post,
+      comments
     })
   }).catch(next)
 })

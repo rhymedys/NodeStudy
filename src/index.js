@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 12:42:02
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-15 14:35:06
+ * @Last Modified time: 2018-07-18 17:10:30
  */
 
 const path = require('path')
@@ -68,6 +68,13 @@ app.use(function (req, res, next) {
 
 // 路由
 routes(app)
+
+app.use(function (err, req, res, next) {
+  console.error(err)
+  req.flash('error', err.message)
+  res.redirect('/posts')
+})
+
 // 监听端口，启动程序
 app.listen(config.port, function () {
   console.log(`${pkg.name} listening on port ${config.port}`)
