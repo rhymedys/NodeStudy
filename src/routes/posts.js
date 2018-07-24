@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 13:35:01
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-18 16:56:08
+ * @Last Modified time: 2018-07-23 14:01:52
  */
 
 const express = require('express')
@@ -119,7 +119,7 @@ router.post('/:postId/edit', checkLogin, function (req, res, next) {
       throw new Error('请填写内容')
     }
   } catch (e) {
-    req.flash('error', e.message)
+    req.flash('校验错误', e.message)
     return res.redirect('back')
   }
 

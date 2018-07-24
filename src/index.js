@@ -2,7 +2,7 @@
  * @Author: Rhymedys/Rhymedys@gmail.com
  * @Date: 2018-07-15 12:42:02
  * @Last Modified by: Rhymedys
- * @Last Modified time: 2018-07-18 17:10:30
+ * @Last Modified time: 2018-07-23 14:31:30
  */
 
 const path = require('path')
@@ -70,7 +70,6 @@ app.use(function (req, res, next) {
 routes(app)
 
 app.use(function (err, req, res, next) {
-  console.error(err)
   req.flash('error', err.message)
   res.redirect('/posts')
 })
